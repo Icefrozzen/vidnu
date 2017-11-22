@@ -268,3 +268,6 @@ C:\Users\Marcus\Documents\Visual Studio 2015\Projects\PessoasSolution\PessoasSol
 C:\Users\Marcus\Documents\Visual Studio 2015\Projects\PessoasSolution\PessoasSolution\PessoasSolution\PessoasSolution\PessoasWeb\obj\Debug\PessoasWeb.csprojResolveAssemblyReference.cache
 C:\Users\Marcus\Documents\Visual Studio 2015\Projects\PessoasSolution\PessoasSolution\PessoasSolution\PessoasSolution\PessoasWeb\obj\Debug\PessoasWeb.dll
 C:\Users\Marcus\Documents\Visual Studio 2015\Projects\PessoasSolution\PessoasSolution\PessoasSolution\PessoasSolution\PessoasWeb\obj\Debug\PessoasWeb.pdb
+C:\Users\Rafael H\Documents\GitHub\vidnu\PessoasSolution\PessoasWeb\obj\Debug\PessoasWeb.csprojResolveAssemblyReference.cache
+C:\Users\Rafael H\Documents\GitHub\vidnu\PessoasSolution\PessoasWeb\obj\Debug\PessoasWeb.dll
+C:\Users\Rafael H\Documents\GitHub\vidnu\PessoasSolution\PessoasWeb\obj\Debug\PessoasWeb.pdb
