@@ -4,69 +4,63 @@ using System.Linq;
 using System.Web;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace PessoasWeb.Models
 {
-    public class VideoModel
+    public class VideoModel : ModelBase
     {
-        private static List<Video> videos = new List<Video>();
-
         public void Create(Video e)
         {
-            videos.Add(e);
-        }
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection; // objeto herdado do ModelBase
+            cmd.CommandText = @"Exec CadProfessor @estatus, @email, @nome, @sobreNome, @cel, @senha";
 
-        public List<Video> Read()
-        {
-            return videos;
-        }
+            cmd.Parameters.AddWithValue("@nome", e.Nome);
 
-        public Video Read(int id)
-        {
-            foreach (Video v in videos)
-            {
-                if (v.VideoId == id)
-                {
-                    return v;
-                }
-            }
-            return null;
+            cmd.ExecuteNonQuery();
         }
 
         public Video Read(string nome)
         {
-            foreach (Video v in videos)
+            Video e = null;
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"Exec LogarProfessor @email, @senha";
+
+            cmd.Parameters.AddWithValue("@nome", nome);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
             {
-                if (v.Nome.Contains(nome))
-                {
-                    return v;
-                }
+                e = new Video();
+                e.VideoId = (int)reader["idVideo"];
+                e.Nome = (string)reader["Nome"];
             }
-            return null;
+
+            return e;
         }
 
-        public void Update(Video e)
+        public List<Video> Read()
         {
-            foreach (Video v in videos)
-            {
-                if (v.VideoId == e.VideoId)
-                {
-                    v.Nome = e.Nome;
-                    break;
-                }
-            }
-        }
+            List<Video> lista = new List<Video>();
 
-        public void Delete(int id)
-        {
-            foreach (Video v in videos)
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"select * from v_video";
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
             {
-                if (v.VideoId == id)
-                {
-                    videos.Remove(v);
-                    break;
-                }
+                Video e = new Video();
+                e.VideoId = (int)reader["idProfessor"];
+                e.Nome = (string)reader["Nome"];
+                lista.Add(e);
             }
+
+            return lista;
         }
     }
 }

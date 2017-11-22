@@ -1,75 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace PessoasWeb.Models
 {
-    public class PessoaModel
+    public class PessoaModel : ModelBase
     {
-        private static List<Pessoa> pessoas = new List<Pessoa>();
-
         public void Create(Pessoa e)
         {
-            pessoas.Add(e);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection; // objeto herdado do ModelBase
+            cmd.CommandText = @"Exec CadPessoa @nome, @email, @senha, @date";
+
+            cmd.Parameters.AddWithValue("@nome", e.Nome);
+            cmd.Parameters.AddWithValue("@email", e.Email);
+            cmd.Parameters.AddWithValue("@senha", e.Senha);
+            cmd.Parameters.AddWithValue("@date", e.Senha);
+            DateTime data = Convert.ToDateTime(e.DataNascimento);
+            cmd.Parameters.AddWithValue("@datanasc", data);
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public Pessoa Read(string email, string senha)
+        {
+            Pessoa e = null;
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"Exec LogarPessoa @email, @senha";
+
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@senha", senha);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                e = new Admin();
+                e.PessoaId = (int)reader["idPessoa"];
+                e.Nome = (string)reader["Nome"];
+                e.Email = (string)reader["Email"];
+                e.Senha = (string)reader["Senha"];
+                DateTime data = (DateTime)reader["Datanasc"];
+                //e.DataNascimento = data.ToString(@"yyyy-MM-dd");
+            }
+
+            return e;
         }
 
         public List<Pessoa> Read()
         {
-            return pessoas;
-        }
+            List<Pessoa> lista = new List<Pessoa>();
 
-        public Pessoa Read( int id)
-        {
-            foreach(Pessoa p in pessoas)
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"select * from v_pessoa";
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
             {
-                if(p.PessoaId == id)
-                {
-                    return p;
-                }
-            }
-            return null;
-        }
+                Admin e = new Admin();
+                e.Nome = (string)reader["Nome"];
+                e.Email = (string)reader["Email"];
+                e.Senha = (string)reader["Senha"];
 
-        public Pessoa Read(string nome)
-        {
-            foreach (Pessoa p in pessoas)
-            {
-                if (p.Nome.Contains(nome))
-                {
-                    return p;
-                }
+                lista.Add(e);
             }
-            return null;
-        }
 
-        public void Update(Pessoa e)
-        {
-            foreach (Pessoa p in pessoas)
-            {
-                if (p.PessoaId == e.PessoaId)
-                {
-                    p.Nome = e.Nome;
-                    p.Email = e.Email;
-                    p.Senha = e.Senha;
-                    p.DataNascimento = e.DataNascimento;
-
-                    break;
-                }
-            }
-        }
-
-        public void Delete(int id)
-        {
-            foreach(Pessoa p in pessoas)
-            {
-                if(p.PessoaId == id)
-                {
-                    pessoas.Remove(p);
-                    break;
-                }
-            }
+            return lista;
         }
     }
 }

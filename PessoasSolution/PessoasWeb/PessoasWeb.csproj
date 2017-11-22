@@ -187,9 +187,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
+    <Compile Include="Filter\AdminFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Pessoa.cs" />
     <Compile Include="Models\PessoaModel.cs" />
     <Compile Include="Models\Usuario.cs" />

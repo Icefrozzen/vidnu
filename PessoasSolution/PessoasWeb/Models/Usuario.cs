@@ -7,6 +7,6 @@ namespace PessoasWeb.Models
 {
     public class Usuario : Pessoa
     {
-        string foto;
+        string Foto { get; set; }
     }
 }

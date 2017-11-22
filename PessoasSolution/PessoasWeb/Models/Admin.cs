@@ -5,7 +5,8 @@ using System.Web;
 
 namespace PessoasWeb.Models
 {
-    public class Admin
+    public class Admin : Pessoa
     {
+       
     }
 }
