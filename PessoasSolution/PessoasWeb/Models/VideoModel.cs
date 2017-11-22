@@ -37,25 +37,21 @@ namespace PessoasWeb.Models
         {
             foreach (Video v in videos)
             {
-                if (p.Nome.Contains(nome))
+                if (v.Nome.Contains(nome))
                 {
-                    return p;
+                    return v;
                 }
             }
             return null;
         }
 
-        public void Update(Pessoa e)
+        public void Update(Video e)
         {
-            foreach (Pessoa p in pessoas)
+            foreach (Video v in videos)
             {
-                if (p.PessoaId == e.PessoaId)
+                if (v.VideoId == e.VideoId)
                 {
-                    p.Nome = e.Nome;
-                    p.Email = e.Email;
-                    p.Senha = e.Senha;
-                    p.DataNascimento = e.DataNascimento;
-
+                    v.Nome = e.Nome;
                     break;
                 }
             }
@@ -63,11 +59,11 @@ namespace PessoasWeb.Models
 
         public void Delete(int id)
         {
-            foreach (Pessoa p in pessoas)
+            foreach (Video v in videos)
             {
-                if (p.PessoaId == id)
+                if (v.VideoId == id)
                 {
-                    pessoas.Remove(p);
+                    videos.Remove(v);
                     break;
                 }
             }

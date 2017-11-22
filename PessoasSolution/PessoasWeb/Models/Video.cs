@@ -7,8 +7,19 @@ namespace PessoasWeb.Models
 {
     public class Video
     {
-        private int VideoId { get; set; }
+        private int videoId;
+        private string nome;
 
-        private string Nome { get; set; }
+        public int VideoId
+        {
+            get { return VideoId; }
+            set { VideoId = value; }
+        }
+
+        public string Nome
+        {
+            get { return Nome; }
+            set { Nome = value; }
+        }
     }
 }
