@@ -10,42 +10,41 @@ namespace PessoasWeb.Models
 {
     public class VideoModel : ModelBase
     {
-        public void Create(Video e)
+        public void Create(Video v)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection; // objeto herdado do ModelBase
-            cmd.CommandText = @"Exec CadProfessor @estatus, @email, @nome, @sobreNome, @cel, @senha";
+            cmd.CommandText = "INSERT INTO tb_video (nome_video) VALUES (@nome) ";
 
-            cmd.Parameters.AddWithValue("@nome", e.Nome);
+            cmd.Parameters.AddWithValue("@nome", v.Nome);
 
             cmd.ExecuteNonQuery();
         }
 
-        public Video Read(string nome)
+        public Video Read(int idVideo)
         {
-            Video e = null;
-
+            Video v = null;
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"Exec LogarProfessor @email, @senha";
+            cmd.CommandText = @"select * from v_video where Codigo = @IdVideo";
 
-            cmd.Parameters.AddWithValue("@nome", nome);
+            cmd.Parameters.AddWithValue("@IdVideo", idVideo);
 
             SqlDataReader reader = cmd.ExecuteReader();
+
             if (reader.Read())
             {
-                e = new Video();
-                e.VideoId = (int)reader["idVideo"];
-                e.Nome = (string)reader["Nome"];
+                v = new Video();
+                v.VideoId = (int)reader["idVideo"];
+                v.Nome = (string)reader["Nome_video"];
             }
 
-            return e;
+            return v;
         }
 
         public List<Video> Read()
         {
             List<Video> lista = new List<Video>();
-
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = connection;
             cmd.CommandText = @"select * from v_video";
@@ -54,13 +53,26 @@ namespace PessoasWeb.Models
 
             while (reader.Read())
             {
-                Video e = new Video();
-                e.VideoId = (int)reader["idProfessor"];
-                e.Nome = (string)reader["Nome"];
-                lista.Add(e);
+                Video v = new Video();
+                v.VideoId = (int)reader["IdVideo"];
+                v.Nome = (string)reader["Nome_video"];
+
+                lista.Add(v);
             }
 
             return lista;
         }
+
+        public void UpdateVideo(int idVideo, string video)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"UPDATE videos set nome_video = @nome where id = @idVideo";
+            cmd.Parameters.AddWithValue("@idEvento", idVideo);
+            cmd.Parameters.AddWithValue("@imagem", video);
+
+            cmd.ExecuteNonQuery();
+        }
+
     }
 }
