@@ -186,11 +186,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
+    <Compile Include="Filter\AdminFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Pessoa.cs" />
     <Compile Include="Models\PessoaModel.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Video.cs" />
     <Compile Include="Models\VideoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -220,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Video\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
