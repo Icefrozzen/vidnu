@@ -62,12 +62,14 @@ namespace PessoasWeb.Models
 
             while (reader.Read())
             {
-                Admin e = new Admin();
-                e.Nome = (string)reader["Nome"];
-                e.Email = (string)reader["Email"];
-                e.Senha = (string)reader["Senha"];
+                Pessoa p = new Pessoa();
+                p.PessoaId = (int)reader["idPessoa"];
+                p.Nome = (string)reader["Nome"];
+                p.Email = (string)reader["Email"];
+                p.Senha = (string)reader["Senha"];
+                p.DataNascimento = (DateTime)reader["Datanasc"];
 
-                lista.Add(e);
+                lista.Add(p);
             }
 
             return lista;

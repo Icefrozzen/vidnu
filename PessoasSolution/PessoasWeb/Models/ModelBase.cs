@@ -8,7 +8,6 @@ namespace PessoasWeb.Models
 {
     public class ModelBase : IDisposable
     {
-        {
         protected SqlConnection connection;
         public ModelBase()
         {
@@ -26,5 +25,4 @@ namespace PessoasWeb.Models
             connection.Close();
         }
     }
-}
 }
